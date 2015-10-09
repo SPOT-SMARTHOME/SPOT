@@ -1,1 +1,276 @@
-Web Interface to generate the XML drivers using SPOT-XML driver schema
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<header> <H1> SPOT smart appliance driver generator </H1></header>
+<title>SPOT Drivers Web Interface</title>
+<style type="text/css">
+body { margin-top: 0; padding-top:0; }
+div#menuForm { overflow: hidden; background-color: #FFFFC6; border: 2px solid yellow; position: fixed; padding: 2px; Z-index: 1000; height: 45px; left: 0; right: 0; }
+div#xmlForm { padding: 10px 10px 0 10px; width: 100%; padding-top: 55px; left: 5px; right: 5px; }
+@media print { div#menuForm { display:none; } div#xmlForm { padding-top: 0; } input#submit { display:none; } }
+</style>
+<style type="text/css">
+.XMLattribute { margin-left: 10px; font-style: italic; }
+</style>
+</head>
+<body onload="editorSetup();" onhelp="helpSelected();">
+<script type="text/javascript">
+<!--
+
+varLimit = 50;
+varCount = 1;
+function addVariable(divName){
+     if (varCount == varLimit)  {
+          alert("You have reached the limit of adding " + varCount + " variables");
+     }
+     else {
+          var newVar = document.createElement('div');
+          newVar.innerHTML = "<br><fieldset> <legend>- Variable " + (varCount + 1)  + " </legend> <input type='hidden' value='variable' name='.tg'> <span class='XMLsimpleType' onclick='selectelm(this, event);' ondblclick='selectelm(this, event);'><span class='maxValue'><label>maxValue: </label><input type='text' class='maxValue' name='maxValue' value='' onfocus='focusGained(this)' onchange='textChanged(this)'><br></span>  <span class='minValue'><label>minValue: </label><input type='text' class='minValue' name='minValue' value='' onfocus='focusGained(this)' onchange='textChanged(this)'><br></span> <span class='description'><label>description: </label><input type='text' class='description' name='description' value='' onfocus='focusGained(this)' onchange='textChanged(this)'><br></span></fieldset>" ;
+		
+          document.getElementById('variablesList').appendChild(newVar);
+          varCount++;
+     }
+}
+
+  function setUpPreference() {
+    var preference=document.preference;
+    // begin preference
+    preference.radioIndex=1;
+    preference.breaktag=0;
+    preference.checkSchema=false;
+    preference.obeySchema=false;
+    // end preference
+  }
+
+  function setUpSchemaInfo() {
+    // begin schema
+setSchema('drivers',{'#cm':'(<driver>)',
+ 'driver':{
+ 'driverName':{'#dt':'#string'},
+ 'cloudAccess':{'#dt':'#string'},
+ 'deviceType':{'#dt':'#string'},
+ 'localAccess':{'#dt':'#string'},
+ 'driverVendor':{'#dt':'#string'},
+ 'variablesList':{
+ 'variable':{
+ 'UIElement':{
+ 'caption':{'#dt':'#string'},
+ 'uiType':{'#dt':'#string'},
+ 'helperText':{'#dt':'#string'},'#cm':'(<uiType>)(<helperText>)(<caption>)'},
+ 'value':{'#dt':'#string'},
+ 'dr_value':{'#dt':'#string'},
+ 'name':{'#dt':'#string'},
+ 'maxValue':{'#dt':'#string'},
+ 'description':{'#dt':'#string'},
+ 'minValue':{'#dt':'#string'},
+ 'writePermission':{'#dt':'#string'},
+ 'type':{'#dt':'#string'},
+ 'showOnUi':{'#dt':'#string'},'#cm':'(((<name>)|(<value>)|(<dr_value>)|(<type>)|(<minValue>)|(<maxValue>)|(<description>)|(<writePermission>)|(<showOnUi>)|(<UIElement>))*)'},'#cm':'(<variable>)*'},
+ 'read':{
+ 'httpMethod':{'#dt':'#string'},
+ 'responsePattern':{'#dt':'#string'},
+ 'baseUri':{'#dt':'#anyURI'},
+ 'uriExtentionPattern':{'#dt':'#string'},'#cm':'(<httpMethod>)(<baseUri>)(<uriExtentionPattern>)(<responsePattern>)'},'#cm':'(<driverName>)(<deviceType>)(<driverVendor>)(<image>)(<localAccess>)(<cloudAccess>)(<common>)(<read>)(<write>)(<variablesList>)',
+ 'write':{
+ 'httpMethod':{'#dt':'#string'},
+ 'bodyPattern':{'#dt':'#string'},
+ 'baseUri':{'#dt':'#anyURI'},
+ 'headerField':{'#dt':'#string'},
+ 'bodyType':{'#dt':'#string'},'#cm':'(<httpMethod>)(<baseUri>)(<bodyType>)(<bodyPattern>)(<headerField>)'},
+ 'common':{
+ 'baseUri':{'#dt':'#string'},
+ 'httpHeaderFields':{
+ 'headerField':{
+ 'value':{'#dt':'#string'},
+ 'name':{'#dt':'#string'},'#cm':'(<name>)(<value>)'},'#cm':'(<headerField>)'},'#cm':'(<httpHeaderFields>)(<baseUri>)'},
+ 'image':{'#dt':'#string'}}});
+    // end schema
+  }
+-->
+</script>
+  <br>
+  
+</form></div>
+<div id="xmlForm"><form name="xmlForm" action="http://www.datamech.com/XMLForm/formXML0200.pl?.df=html" target="_blank" onsubmit="return outputToWindow(this)" onclick="clickFormBody(this, event);" method="post">
+<div class="XMLcomplexContent" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<fieldset class="drivers">
+<legend>- drivers</legend>
+<input type="hidden" value="drivers" name=".tg">
+<div class="XMLcomplexContent" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<fieldset class="driver">
+<legend>- driver</legend>
+<input type="hidden" value="driver" name=".tg">
+
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="driverName">
+<label>driverName: </label>
+<input type="text" class="driverName" name="driverName" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="deviceType">
+<label>deviceType: </label>
+<input type="text" class="deviceType" name="deviceType" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="driverVendor">
+<label>driverVendor: </label>
+<input type="text" class="driverVendor" name="driverVendor" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="localAccess">
+<label>localAccess: </label>
+<input type="text" class="localAccess" name="localAccess" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="cloudAccess">
+<label>cloudAccess: </label>
+<input type="text" class="cloudAccess" name="cloudAccess" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<div class="XMLcomplexContent" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<fieldset class="common">
+<legend>- common</legend>
+<input type="hidden" value="common" name=".tg">
+<div class="XMLcomplexContent" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<fieldset class="httpHeaderFields">
+<legend>- httpHeaderFields</legend>
+<input type="hidden" value="httpHeaderFields" name=".tg">
+<div class="XMLcomplexContent" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<fieldset class="headerField">
+<legend>- headerField</legend>
+<input type="hidden" value="headerField" name=".tg">
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="name">
+<label>name: </label>
+<input type="text" class="name" name="name" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="value">
+<label>value: </label>
+<input type="text" class="value" name="value" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<input type="hidden" value="/headerField" name=".tg">
+</fieldset>
+</div>
+<input type="hidden" value="/httpHeaderFields" name=".tg">
+</fieldset>
+</div>
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="baseUri">
+<label>baseUri: </label>
+<input type="text" class="baseUri" name="baseUri" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<input type="hidden" value="/common" name=".tg">
+</fieldset>
+</div>
+<div class="XMLcomplexContent" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<fieldset class="read">
+<legend>- read</legend>
+<input type="hidden" value="read" name=".tg">
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="httpMethod">
+<label>httpMethod: </label>
+<input type="text" class="httpMethod" name="httpMethod" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="baseUri">
+<label>baseUri: </label>
+<input type="text" class="baseUri" name="baseUri" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="uriExtentionPattern">
+<label>uriExtentionPattern: </label>
+<input type="text" class="uriExtentionPattern" name="uriExtentionPattern" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="responsePattern">
+<label>responsePattern: </label>
+<input type="text" class="responsePattern" name="responsePattern" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<input type="hidden" value="/read" name=".tg">
+</fieldset>
+</div>
+<div class="XMLcomplexContent" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<fieldset class="write">
+<legend>- write</legend>
+<input type="hidden" value="write" name=".tg">
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="httpMethod">
+<label>httpMethod: </label>
+<input type="text" class="httpMethod" name="httpMethod" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="baseUri">
+<label>baseUri: </label>
+<input type="text" class="baseUri" name="baseUri" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="bodyType">
+<label>bodyType: </label>
+<input type="text" class="bodyType" name="bodyType" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<span class="bodyPattern">
+<label>bodyPattern: </label>
+<input type="text" class="bodyPattern" name="bodyPattern" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+<br></span>
+<div class="XMLcomplexContent" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+<fieldset class="headerField">
+<legend>- headerField</legend>
+<input type="hidden" value="headerField" name=".tg">
+<input type="hidden" value="/headerField" name=".tg">
+</fieldset>
+</div>
+<input type="hidden" value="/write" name=".tg">
+</fieldset>
+</div>
+<div class="XMLcomplexContent" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+
+<fieldset class="variablesList" id='variablesList'>
+<legend>- variablesList</legend>
+<input type="hidden" value="variablesList" name=".tg">
+
+<input type="button" value="Add New Variable" onClick="addVariable('variablesList');">
+<div class="XMLcomplexContent" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+
+	<fieldset class="variable">
+	<legend>- variable 1</legend>
+	<input type="hidden" value="variable" name=".tg">
+	
+	<span class="XMLsimpleType" onclick="selectelm(this, event);" ondblclick="selectelm(this, event);">
+	
+	<span class="maxValue">
+	<label>maxValue: </label>
+	<input type="text" class="maxValue" name="maxValue" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+	<br>
+	
+	<span class="minValue">
+	<label>minValue: </label>
+	<input type="text" class="minValue" name="minValue" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+	<br>
+	
+	<span class="description">
+	<label>description: </label>
+	<input type="text" class="description" name="description" value="" onfocus="focusGained(this)" onchange="textChanged(this)"></span>
+	<br>
+	
+	</span>
+	<input type="hidden" value="/variable" name=".tg">
+	</fieldset>
+	</div>
+<input type="hidden" value="/variablesList" name=".tg">
+</fieldset>
+</div>
+<input type="hidden" value="/driver" name=".tg">
+</fieldset>
+</div>
+<input type="hidden" value="/drivers" name=".tg">
+</fieldset>
+</div>
+<p><input id="submit" type="submit" value="Generate XML"></p>
+</form></div>
+
+
+</body></html>
