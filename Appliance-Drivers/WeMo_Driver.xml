@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<drivers>
+    <driver>
+        <driverName>WeMo Switch</driverName>
+        <deviceType>Light</deviceType>
+        <driverVendor>WeMo</driverVendor>
+        <image></image>
+        <localAccess>true</localAccess>
+        <cloudAccess>false</cloudAccess>
+        <pullingPeridInSec></pullingPeridInSec>
+        <common>
+            <headerField></headerField>
+            <baseUri></baseUri>
+        </common>
+        <read>
+            <headerField>{"Content-Type" : "text/xml", SOAPACTION:"\"urn:Belkin:service:basicevent:1#GetBinaryState\"" }</headerField>
+            <httpMethod>POST</httpMethod>
+            <baseUri>http://ip_address</baseUri>
+            <uriPath>/upnp/control/basicevent1</uriPath>
+            <uriExtentionPattern>null</uriExtentionPattern>
+            <bodyType>xml</bodyType>
+            <bodyPattern><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+                <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+                    <s:Body>
+                        <u:GetBinaryState xmlns:u="urn:Belkin:service:basicevent:1">
+                            <BinaryState>@%=BinaryState%@</BinaryState>
+                        </u:GetBinaryState>
+                    </s:Body>
+                </s:Envelope>
+                ]]>
+            </bodyPattern>
+            <responsePattern>XML</responsePattern>
+        </read>
+        <write>
+            <headerField>{"Content-Type":"text/xml", "SOAPACTION":"\"urn:Belkin:service:basicevent:1#SetBinaryState\"" }</headerField>
+            <httpMethod>POST</httpMethod>
+            <baseUri>http://ip_address</baseUri>
+            <uriPath>/upnp/control/basicevent1</uriPath>
+            <bodyType>xml</bodyType>
+            <bodyPattern><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+                <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+                    <s:Body>
+                        <u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1">
+                            <BinaryState>@%=BinaryState%@</BinaryState>
+                        </u:SetBinaryState>
+                    </s:Body>
+                </s:Envelope>
+                ]]>
+            </bodyPattern>
+        </write>
+        <variablesList>
+            <variable>
+                <name>BinaryState</name>
+                <value></value>
+                <reportName>Status</reportName>
+                <type>Integer</type>
+                <minValue>0</minValue>
+                <maxValue>1</maxValue>
+                <description>On/Off State</description>
+                <writePermission>true</writePermission>
+                <showOnUi>true</showOnUi>
+                <UIElement>
+                    <uiType>Switch</uiType>
+                    <helperText>The On/Off State</helperText>
+                    <caption>On/Off</caption>
+                </UIElement>
+            </variable>
+        </variablesList>
+    </driver>
+</drivers>

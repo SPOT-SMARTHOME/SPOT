@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<drivers>
+    <driver>
+        <driverName>HoneywellThermostat</driverName>
+        <deviceType>HVAC</deviceType>
+        <driverVendor>Honeywell</driverVendor>
+        <image></image>
+        <localAccess>false</localAccess>
+        <cloudAccess>true</cloudAccess>
+        <pullingPeridInSec></pullingPeridInSec>
+        <common>
+            <httpHeaderFields>
+                <headerField>
+                    <name>Content-Type</name>
+                    <value>application/json;charset=UTF-8</value>
+                </headerField>
+                <headerField>
+                    <name>Authorization</name>
+                    <value>Bearer @%=accessToken%@</value>
+                </headerField>
+            </httpHeaderFields>
+            <baseUri></baseUri>
+        </common>
+        <auth>
+            <httpMethod>Post</httpMethod>
+            <baseUri>https://winkapi.quirky.com/oauth2/token</baseUri>
+            <accessToken>33bf263553451fe021e3193263b8c49a</accessToken>
+            <refreshToken>1bb574702428b110120f46c864212106</refreshToken>
+            <clientId>b6408eb77f19ad92553831d61f8b3502</clientId>
+            <clientSecret>54fd2b5cdbf8a2d22b446cd86a424442</clientSecret>
+            <expiresIn>31556952</expiresIn>
+        </auth>
+        <read>
+            <httpMethod>Get</httpMethod>
+            <baseUri>https://winkapi.quirky.com</baseUri>
+            <uriPath>/thermostats/@%=thermostatId%@</uriPath>
+            <uriExtentionPattern>null</uriExtentionPattern>
+            <responsePattern>json</responsePattern>
+        </read>
+        <write>
+            <httpMethod>Put</httpMethod>
+            <baseUri>https://winkapi.quirky.com</baseUri>
+            <uriPath>/thermostats/@%=thermostatId%@</uriPath>
+            <bodyType>json</bodyType>
+            <bodyPattern>$varName$:$varValue</bodyPattern>
+        </write>
+        <variablesList>
+            <variable>
+                <name>thermostatId</name>
+                <value>64458</value>
+                <type>string</type>
+                <description>Thermostat id in WINK's cloud system</description>
+                <writePermission>false</writePermission>
+                <showOnUi>false</showOnUi>
+            </variable>
+            <variable>
+                <name>temperature</name>
+                <reportName>currentTemp</reportName>
+                <value>0</value>
+                <dr_value>0</dr_value>
+                <type>Float</type>
+                <unit>C</unit>
+                <description>Current Temperature</description>
+                <writePermission>false</writePermission>
+                <showOnUi>true</showOnUi>
+                <UIElement>
+                    <uiType>TextView</uiType>
+                    <helperText>Current Temperature</helperText>
+                    <caption>Temperature</caption>
+                </UIElement>
+            </variable>
+            <variable>
+                <name>desired_state</name>
+                <value></value>
+                <type>Nested</type>
+                <writePermission>true</writePermission>
+                <parent>/</parent>
+            </variable>
+            <variable>
+                <name>powered</name>
+                <value></value>
+                <reportName>Status</reportName>
+                <controlType>DLC_ONOFF</controlType>
+                <dr_value>false</dr_value>
+                <type>Boolean</type>
+                <minValue>0</minValue>
+                <maxValue>1</maxValue>
+                <passValueAs>0/false,1/true</passValueAs>
+                <saveValueAs>false/0,true/1</saveValueAs>
+                <description>On/Off State/</description>
+                <writePermission>true</writePermission>
+                <showOnUi>true</showOnUi>
+                <UIElement>
+                    <uiType>Switch</uiType>
+                    <helperText>The On/Off State</helperText>
+                    <caption>On/Off</caption>
+                </UIElement>
+                <parent>/desired_state</parent>
+            </variable>
+            <variable>
+                <name>mode</name>
+                <value></value>
+                <dr_value></dr_value>
+                <minValue></minValue>
+                <maxValue></maxValue>
+                <passValueAs>0/heat_only,1/cool_only</passValueAs>
+                <saveValueAs>heat_only/0,cool_only/1</saveValueAs>
+                <type>String</type>
+                <description>mod</description>
+                <writePermission>true</writePermission>
+                <showOnUi>true</showOnUi>
+                <UIElement>
+                    <uiType>Spinner</uiType>
+                    <helperText>Operating Mode</helperText>
+                    <caption>Mode</caption>
+                    <uiElemValues>HEAT,COOL</uiElemValues>
+                </UIElement>
+                <parent>/desired_state</parent>
+            </variable>
+            <variable>
+                <name>min_set_point</name>
+                <reportName>SetPoint</reportName>
+                <value></value>
+                <dr_value>77</dr_value>
+                <type>Float</type>
+                <unit>C</unit>
+                <minValue>40</minValue>
+                <maxValue>90</maxValue>
+                <description>Heat to temperature</description>
+                <writePermission>true</writePermission>
+                <showOnUi>true</showOnUi>
+                <UIElement>
+                    <uiType>EditText</uiType>
+                    <helperText>Set Point for Heat Mode</helperText>
+                    <caption>Minimum target Temperature</caption>
+                </UIElement>
+                <parent>/desired_state</parent>
+            </variable>
+            <variable>
+                <name>max_set_point</name>
+                <reportName>SetPoint</reportName>
+                <value></value>
+                <dr_value>77</dr_value>
+                <type>Float</type>
+                <unit>C</unit>
+                <minValue>50</minValue>
+                <maxValue>99</maxValue>
+                <description>Cool to temperature</description>
+                <writePermission>true</writePermission>
+                <showOnUi>true</showOnUi>
+                <UIElement>
+                    <uiType>EditText</uiType>
+                    <helperText>Set Point for Cool Mode</helperText>
+                    <caption>Maximum target Temperature</caption>
+                </UIElement>
+                <parent>/desired_state</parent>
+            </variable>
+        </variablesList>
+    </driver>
+</drivers>

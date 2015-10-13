@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<drivers>
+    <driver>
+        <driverName>Philips Hue</driverName>
+        <deviceType>Light</deviceType>
+        <driverVendor>Philips</driverVendor>      
+        <image></image>
+        <localAccess>true</localAccess>
+        <cloudAccess>false</cloudAccess>
+        <common>
+            <httpHeaderFields>
+            	<headerField>
+            		<name>"Content-Type"</name>
+            		<value>"application/json"</value>
+            	</headerField>
+            </httpHeaderFields>
+            <baseUri></baseUri>
+        </common>
+        <read>
+            <httpMethod>Get</httpMethod>
+            <baseUri>http://ip_address</baseUri>
+            <uriPath>/api/@%=username%@/lights/@%=lightId%@</uriPath>
+            <uriExtentionPattern>null</uriExtentionPattern>
+            <responsePattern>json</responsePattern>
+        </read>
+        <write>
+            <httpMethod>Put</httpMethod>
+            <baseUri>http://ip_address</baseUri>
+            <uriPath>/api/@%=username%@/lights/@%=lightId%@/state</uriPath>
+            <bodyType>json</bodyType>
+    		<bodyPattern>$varName:$varValue</bodyPattern>
+    		<headerField>{"Content-Type" : "application/json" }</headerField>
+        </write>
+        <variablesList>
+            <variable>
+                <name>on</name>
+                <value></value>
+                <reportName>Status</reportName>
+                <controlType>DLC_ONOFF</controlType>
+                <dr_value>false</dr_value>
+                <type>Boolean</type>
+                <minValue>0</minValue>
+                <maxValue>1</maxValue>
+                <passValueAs>0/false,1/true</passValueAs>
+                <saveValueAs>false/0,true/1</saveValueAs>
+                <description>On/Off State/</description>
+                <writePermission>true</writePermission>
+                <showOnUi>true</showOnUi>
+                <UIElement>
+                	<uiType>Switch</uiType>
+					<helperText>The On/Off State</helperText>
+					<caption>On/Off</caption>
+	            </UIElement>
+            </variable>
+            <variable>
+                <name>bri</name>
+                <value></value>
+                <type>Integer</type>
+                <minValue>0</minValue>
+                <maxValue>255</maxValue>
+                <description>brightness</description>
+				<writePermission>true</writePermission>
+                <showOnUi>true</showOnUi>
+                <UIElement>
+                	<uiType>NumberPicker</uiType>
+					<helperText>The light brightness</helperText>
+					<caption>brightness</caption>
+	            </UIElement>             
+            </variable>
+            <variable>
+                <name>lightId</name>
+                <value>2</value>
+                <minValue>1</minValue>
+                <maxValue>3</maxValue>
+                <type>Integer</type>
+                <description>The light id</description>
+                <writePermission>false</writePermission>
+                <showOnUi>false</showOnUi>
+                <UIElement>
+                	<uiType></uiType>  
+					<helperText></helperText>
+					<caption></caption>
+	            </UIElement>             
+            </variable>
+            <variable>
+                <name>hue</name>
+                <value></value>
+                <minValue>0</minValue>
+                <maxValue>65535</maxValue>
+                <type>Integer</type>
+                <description>The HUE of color</description>
+                <writePermission>true</writePermission>
+                <showOnUi>true</showOnUi>
+                <UIElement>
+                	<uiType>NumberPicker</uiType>
+					<helperText>The HUE of color</helperText>
+					<caption>HUE level</caption>
+	            </UIElement>                             
+            </variable>
+            <variable>
+                <name>sat</name>
+                <value></value>
+                <minValue>0</minValue>
+                <maxValue>254</maxValue>
+                <type>Integer</type>
+                <description>The saturation of color</description>
+                <writePermission>true</writePermission>
+                <showOnUi>True</showOnUi>
+                <UIElement>
+                	<uiType>NumberPicker</uiType>
+					<helperText>The sat of color</helperText>
+					<caption>saturation level</caption>
+	            </UIElement>                             
+            </variable>
+            <variable>
+                <name>username</name>
+                <value>newdeveloper</value>
+                <minValue></minValue>
+                <maxValue></maxValue>
+                <type>String</type>
+                <description>The registered username</description>
+                <writePermission>false</writePermission>
+                <showOnUi>false</showOnUi>
+                <UIElement>
+                	<uiType></uiType>  
+					<helperText></helperText>
+					<caption></caption>
+	            </UIElement>                             
+            </variable>
+        </variablesList>
+    </driver>
+</drivers>

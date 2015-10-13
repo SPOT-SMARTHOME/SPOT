@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<drivers>
+    <driver>
+        <driverName>UFO Smart Plug</driverName>
+        <deviceType>Plug</deviceType>
+        <driverVendor>UFO</driverVendor>
+        <image></image>
+        <localAccess>true</localAccess>
+        <cloudAccess>false</cloudAccess>
+        <common>
+            <httpHeaderFields>
+                <headerField>
+                    <name>"Content-Type"</name>
+                    <value>"text/xml"</value>
+                </headerField>
+            </httpHeaderFields>
+            <baseUri></baseUri>
+        </common>
+        <read>
+            <httpMethod>Get</httpMethod>
+            <baseUri>http://ip_address</baseUri>
+            <uriPath>/@%=position%@/set.xml</uriPath>
+            <uriExtentionPattern>null</uriExtentionPattern>
+            <responsePattern>xml</responsePattern>
+        </read>
+        <write>
+            <httpMethod>Get</httpMethod>
+            <baseUri>http://ip_address</baseUri>
+            <uriPath>/@%=position%@/set.xml?value=@%=state%@</uriPath>
+            <headerField>{"Content-Type" : "text/xml"}</headerField>
+            <bodyPattern></bodyPattern>
+        </write>
+        <variablesList>
+            <variable>
+                <name>position</name>
+                <value>1</value>
+                <minValue>0</minValue>
+                <maxValue>3</maxValue>
+                <type>Integer</type>
+                <description>Socket Position</description>
+                <writePermission>true</writePermission>
+                <showOnUi>true</showOnUi>
+                <UIElement>
+                    <uiType>NumberPicker</uiType>
+                    <helperText>Smart Plug Socket</helperText>
+                    <caption>Socket No.</caption>
+                </UIElement>
+            </variable>
+            <variable>
+                <name>state</name>
+                <value></value>
+                <reportName>Status</reportName>
+                <dr_value>false</dr_value>
+                <type>String</type>
+                <minValue>OFF</minValue>
+                <maxValue>ON</maxValue>
+                <passValueAs>1/ON,0/OFF</passValueAs>
+                <description>On/Off State</description>
+                <writePermission>true</writePermission>
+                <showOnUi>true</showOnUi>
+                <UIElement>
+                    <uiType>Switch</uiType>
+                    <helperText>The On/Off State</helperText>
+                    <caption>On/Off</caption>
+                </UIElement>
+            </variable>
+        </variablesList>
+    </driver>
+</drivers>

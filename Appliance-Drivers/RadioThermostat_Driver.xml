@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<drivers>
+    <driver>
+        <driverName>RadioThermostat</driverName>
+        <deviceType>HVAC</deviceType>
+        <driverVendor>Radio</driverVendor>
+        <image></image>
+        <localAccess>true</localAccess>
+        <cloudAccess>false</cloudAccess>
+        <pullingPeridInSec></pullingPeridInSec>
+        <common>
+            <headerField></headerField>
+            <baseUri></baseUri>
+        </common>
+        <read>
+            <headerField>{"Content-Type" : "application/json" }</headerField>
+            <httpMethod>Get</httpMethod>
+            <baseUri>http://ip_address</baseUri>
+            <uriPath>/tstat</uriPath>
+            <uriExtentionPattern>null</uriExtentionPattern>
+            <responsePattern>json</responsePattern>
+        </read>
+        <write>
+            <httpMethod>Post</httpMethod>
+            <baseUri>http://ip_address</baseUri>
+            <uriPath>/tstat</uriPath>
+            <bodyType>json</bodyType>
+            <bodyPattern>$varName$:$varValue</bodyPattern>
+            <headerField>{"Content-Type" : "application/json" }</headerField>
+        </write>
+    </driver>
+    <variablesList>
+        <variable>
+            <name>temp</name>
+            <reportName>currentTemp</reportName>
+            <value>0</value>
+            <dr_value>0</dr_value>
+            <type>Float</type>
+            <description>Current Temperature</description>
+            <writePermission>false</writePermission>
+            <showOnUi>true</showOnUi>
+            <UIElement>
+                <uiType>TextView</uiType>
+                <helperText>Current Temperature</helperText>
+                <caption>Temperature</caption>
+            </UIElement>
+        </variable>
+        <variable>
+            <name>tmode</name>
+            <reportName>Status</reportName>
+            <controlType>DLC_ONOFF</controlType>
+            <value></value>
+            <dr_value>0</dr_value>
+            <minValue>0</minValue>
+            <maxValue>3</maxValue>
+            <type>Integer</type>
+            <description>mod</description>
+            <writePermission>true</writePermission>
+            <showOnUi>true</showOnUi>
+            <UIElement>
+                <uiType>Spinner</uiType>
+                <helperText>Operating Mode</helperText>
+                <caption>Mode</caption>
+                <uiElemValues>OFF,HEAT,COOL,AUTO</uiElemValues>
+            </UIElement>
+        </variable>
+        <variable>
+            <name>t_heat</name>
+            <reportName>SetPoint</reportName>
+            <value></value>
+            <dr_value>77</dr_value>
+            <type>Float</type>
+            <minValue>40</minValue>
+            <maxValue>90</maxValue>
+            <description>Heat to tempreture</description>
+            <writePermission>true</writePermission>
+            <showOnUi>true</showOnUi>
+            <UIElement>
+                <uiType>EditText</uiType>
+                <helperText>Sets target and mode</helperText>
+                <caption>Temporary Target Heat</caption>
+            </UIElement>
+        </variable>
+        <variable>
+            <name>t_cool</name>
+            <reportName>SetPoint</reportName>
+            <value></value>
+            <dr_value>76</dr_value>
+            <minValue>40</minValue>
+            <maxValue>90</maxValue>
+            <type>Float</type>
+            <description>Current cool to temperature</description>
+            <writePermission>true</writePermission>
+            <showOnUi>true</showOnUi>
+            <UIElement>
+                <uiType>EditText</uiType>
+                <helperText> Sets target and mode</helperText>
+                <caption>Temporary Target Cool</caption>
+            </UIElement>
+        </variable>
+        <variable>
+            <name>fmode</name>
+            <value></value>
+            <dr_value>0</dr_value>
+            <type>Integer</type>
+            <minValue>0</minValue>
+            <maxValue>2</maxValue>
+            <description>Current fan setting</description>
+            <writePermission>true</writePermission>
+            <showOnUi>true</showOnUi>
+            <UIElement>
+                <uiType>Spinner</uiType>
+                <helperText>Current fan Mode</helperText>
+                <caption>Fan Operating Mode</caption>
+                <uiElemValues>AUTO,CIRCULATE,ON</uiElemValues>
+            </UIElement>
+        </variable>
+    </variablesList>
+</drivers>
