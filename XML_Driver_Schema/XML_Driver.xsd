@@ -1,0 +1,125 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="drivers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="driver">
+          <xs:complexType>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+              <xs:element type="xs:string" name="driverName"/>
+              <xs:element type="xs:string" name="deviceType"/>
+              <xs:element type="xs:string" name="driverVendor"/>
+              <xs:element type="xs:string" name="image"/>
+              <xs:element type="xs:string" name="localAccess"/>
+              <xs:element type="xs:string" name="cloudAccess"/>
+              <xs:element type="xs:string" name="pullingPeridInSec"/>
+              <xs:element name="common">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="httpHeaderFields">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="headerField">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="name"/>
+                                <xs:element type="xs:string" name="value"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="baseUri"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="auth">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="accessToken"/>
+                    <xs:element type="xs:int" name="expiresIn"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="read">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="httpMethod"/>
+                    <xs:element type="xs:string" name="baseUri"/>
+                    <xs:element type="xs:string" name="uriPath"/>
+                    <xs:element type="xs:string" name="uriAuthorization"/>
+                    <xs:element type="xs:string" name="uriExtentionPattern"/>
+                    <xs:element type="xs:string" name="responsePattern"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="write">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="httpMethod"/>
+                    <xs:element type="xs:string" name="baseUri"/>
+                    <xs:element type="xs:string" name="uriPath"/>
+                    <xs:element type="xs:string" name="uriAuthorization"/>
+                    <xs:element type="xs:string" name="bodyType"/>
+                    <xs:element type="xs:string" name="bodyPattern"/>
+                    <xs:element type="xs:string" name="headerField"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="variablesList">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="variable" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                          <xs:element type="xs:string" name="name"/>
+                          <xs:element type="xs:string" name="reportName"/>
+                          <xs:element type="xs:string" name="value"/>
+                          <xs:element type="xs:string" name="dr_value"/>
+                          <xs:element type="xs:string" name="type"/>
+                          <xs:element type="xs:string" name="minValue"/>
+                          <xs:element type="xs:string" name="maxValue"/>
+                          <xs:element type="xs:string" name="description"/>
+                          <xs:element type="xs:string" name="writePermission"/>
+                          <xs:element type="xs:string" name="showOnUi"/>
+                          <xs:element name="UIElement">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="uiType"/>
+                                <xs:element type="xs:string" name="helperText"/>
+                                <xs:element type="xs:string" name="caption"/>
+                                <xs:element type="xs:string" name="uiElemValues" minOccurs="0"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element type="xs:string" name="controlType"/>
+                          <xs:element type="xs:string" name="passValueAs"/>
+                          <xs:element type="xs:string" name="saveValueAs"/>
+                        </xs:choice>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="httpHeaderFields" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="headerField">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="name"/>
+                                <xs:element type="xs:string" name="value"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="baseUri" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
