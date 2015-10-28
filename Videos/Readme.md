@@ -1,10 +1,10 @@
 
 # Multi-vendor Device Control
 
-(Video) https://drive.google.com/file/d/0B3okJ_ljkYZUY1BKVms0YVVJNHM/view?ts=561ab859
+(Video) https://www.youtube.com/watch?v=TPZL-jKbNCs&feature=em-upload_owner
 
 
 # Residential Demand Response 
 (An SPOT-based application for residential energy monitoring management )
 
-(Video) https://drive.google.com/file/d/0B3okJ_ljkYZUU1E4ai1VaGhCWG8/view?ts=561ab848
+(Video) https://www.youtube.com/watch?v=5R7xG4ad5u0&feature=em-upload_owner
